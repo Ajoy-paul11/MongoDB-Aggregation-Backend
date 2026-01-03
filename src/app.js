@@ -12,7 +12,6 @@ import aggregation01Routes from "./routes/aggregation01.route.js"
 
 
 app.use("/api/v1/users/1", aggregation01Routes);
-app.use("/api/v1/users/1", aggregation01Routes);
 
 app.use(errorController);
 

@@ -50,5 +50,54 @@ export const registeredBeforeSixteen = asyncHandler(async (req, res, next) => {
 
 // 3. Get all users whose age is between 25 and 35, sorted by age descending.
 export const ageBucket = asyncHandler(async (req, res, next) => {
+    const eligibleUsers = await User.aggregate([
+        {
+            $match: {
+                age: {
+                    $gte: 25,
+                    $lt: 35
+                }
+            }
+        },
+        {
+            $sort: { age: -1 }
+        }
+    ])
 
+    return res.status(200).json(new ApiResponse(200, eligibleUsers, "Fetched users whose age are between 25 to 35"))
+})
+
+
+// 4. Return users where favoriteFruit = "apple" and eyeColor = "blue".
+export const filterUsers = asyncHandler(async (req, res, next) => {
+    const getUsers = await User.aggregate([
+        {
+            $match: {
+                favoriteFruit: "apple",
+                eyeColor: "blue"
+            }
+        }
+    ])
+
+    return res.status(200).json(new ApiResponse(200, getUsers, "Fetched users with the conditions satisfy"))
+})
+
+
+// 5. Show only users who have more than 3 tags.
+export const tagUsers = asyncHandler(async (req, res, next) => {
+    const tagsUser = await User.aggregate([
+        {
+            $addFields: {
+                tagCount: { $size: "$tags" }
+            }
+        },
+        {
+            $match: {
+                tagCount: { $gt: 3 }
+            }
+        }
+
+    ])
+
+    return res.status(200).json(new ApiResponse(200, tagsUser, "Fetched all the users who have more than 3 tags"))
 })
