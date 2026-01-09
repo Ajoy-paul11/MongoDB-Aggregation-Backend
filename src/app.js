@@ -12,6 +12,7 @@ import aggregation02Routes from "./routes/aggregation02.route.js";
 import aggregation03Routes from "./routes/aggregation03.route.js";
 import aggregation04Routes from "./routes/aggregation04.route.js";
 import aggregation05Routes from "./routes/aggregation05.route.js";
+import aggregation06Routes from "./routes/aggregation06.route.js";
 
 
 
@@ -20,6 +21,7 @@ app.use("/api/v1/users/2", aggregation02Routes);
 app.use("/api/v1/users/3", aggregation03Routes);
 app.use("/api/v1/users/4", aggregation04Routes);
 app.use("/api/v1/users/5", aggregation05Routes);
+app.use("/api/v1/users/6", aggregation06Routes);
 
 
 app.use(errorController);
